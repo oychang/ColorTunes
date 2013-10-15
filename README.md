@@ -5,6 +5,9 @@ This is a HTML5 version of the iTunes 11 album view, which is able to detect the
 
 Color palettes generation is based on the [MMCQ (median cut color quantization) algorithm](http://www.leptonica.com/papers/mediancut.pdf) from the [Leptonica library](http://www.leptonica.com/).
 
+This branch is a place for me to store changes to the core quantize algorithm
+for use on colors on [oychang.com](http://oychang.com/).
+
 
 Demo
 ----
