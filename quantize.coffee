@@ -209,7 +209,7 @@ class @MMCQ
           # set dimensions
           cbox1[dim2] = d2
           cbox2[dim1] = (cbox1[dim2] + 1)
-          console.log "cbox counts: #{cbox.count()}, #{cbox1.count()}, #{cbox2.count()}"
+          # console.log "cbox counts: #{cbox.count()}, #{cbox1.count()}, #{cbox2.count()}"
           return [cbox1, cbox2]
 
     return doCut "r" if maxw == rw
