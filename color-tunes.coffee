@@ -34,7 +34,7 @@ setColor = (color, className, cssAttr="color") ->
     image.width = 300
 
     canvas.width = image.width
-    canvas.height = image.height + 150
+    canvas.height = image.height
     canvas.getContext("2d").drawImage image, 0, 0, image.width, image.height
 
     bgColorMap = getColorMap canvas, 0, 0, (image.width * 0.5), (image.height), 4
