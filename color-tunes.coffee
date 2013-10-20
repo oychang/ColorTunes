@@ -48,9 +48,6 @@ class @ColorTunes
           maxDist = dist
           fgColor2 = color.rgb
 
-      rgbToCssString = (color) ->
-        "rgb(#{color[0]}, #{color[1]}, #{color[2]})"
-
-      console.log rgbToCssString(fgColor2)
-      console.log rgbToCssString(fgColor)
-      console.log rgbToCssString(bgColor)
+      console.log "bg: " + bgColor
+      console.log "fg: " + fgColor
+      console.log "fg2: " + fgColor2
