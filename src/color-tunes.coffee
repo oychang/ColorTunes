@@ -60,6 +60,7 @@ setColor = (color, className, cssAttr="color") ->
         maxDist = dist
         fgColor2 = color.rgb
 
+    console.log [bgColor, fgColor, fgColor2]
     setColor(bgColor, classMap.bgClass, "background-color")
-    setColor(fgColor, classMap.fgClass)
-    setColor(fgColor2, classMap.fgClass2)
+    setColor(fgColor, classMap.fgClass, "background-color")
+    setColor(fgColor2, classMap.fgClass2, "background-color")
