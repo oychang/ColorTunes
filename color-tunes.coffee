@@ -15,7 +15,14 @@ colorDist = (a, b) ->
   square = (n) -> (n * n)
   (square(a[0] - b[0]) + square(a[1] - b[1]) + square(a[2] - b[2]))
 
-@color = (imageURL, canvasEl) ->
+setColor = (color, className, cssAttr="color") ->
+    els = document.getElementsByClassName className
+    color = "rgb(#{color[0]}, #{color[1]}, #{color[2]})"
+    for el in els
+      oldValue = el.getAttribute "style"
+      el.setAttribute("style", "#{oldValue} #{cssAttr}: #{color};")
+
+@color = (imageURL, canvasEl, classMap) ->
   colors = []
 
   image = new Image
@@ -53,4 +60,6 @@ colorDist = (a, b) ->
         maxDist = dist
         fgColor2 = color.rgb
 
-    console.log [bgColor, fgColor, fgColor2]
+    setColor(bgColor, classMap.bgClass, "background-color")
+    setColor(fgColor, classMap.fgClass)
+    setColor(fgColor2, classMap.fgClass2)
