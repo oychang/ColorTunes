@@ -15,8 +15,12 @@ colorDist = (a, b) ->
   square = (n) -> (n * n)
   (square(a[0] - b[0]) + square(a[1] - b[1]) + square(a[2] - b[2]))
 
-@launch = (image, canvas) ->
+@color = (imageURL, canvasEl) ->
   colors = []
+
+  image = new Image
+  image.src = imageURL
+  canvas  = document.getElementById(canvasEl)
 
   window.onload = ->
     image.height = Math.round (image.height * (300 / image.width))
@@ -49,4 +53,4 @@ colorDist = (a, b) ->
         maxDist = dist
         fgColor2 = color.rgb
 
-    [bgColor, fgColor, fgColor2]
+    console.log [bgColor, fgColor, fgColor2]
