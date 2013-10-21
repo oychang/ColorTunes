@@ -1,5 +1,7 @@
-# quantize.coffee, Copyright 2012 Shao-Chung Chen.
-# Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+###!
+quantize.coffee, Copyright 2012 Shao-Chung Chen.
+Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+###
 
 # Basic CoffeeScript port of the (MMCQ) Modified Media Cut Quantization
 # algorithm from the Leptonica library (http://www.leptonica.com/).

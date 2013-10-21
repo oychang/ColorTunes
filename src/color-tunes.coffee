@@ -1,5 +1,10 @@
-# color-tunes.coffee, Copyright 2012 Shao-Chung Chen.
-# Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+###!
+color-tunes.coffee
+Copyright 2012 Shao-Chung Chen.
+Modified 2013 Oliver Chang.
+
+Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+###
 
 getColorMap = (canvas, sx, sy, w, h, nc=8) ->
   pdata = canvas.getContext("2d").getImageData(sx, sy, w, h).data
