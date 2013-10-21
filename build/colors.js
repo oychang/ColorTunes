@@ -1,3 +1,12 @@
+/*!
+color-tunes.coffee
+Copyright 2012 Shao-Chung Chen.
+Modified 2013 Oliver Chang.
+
+Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+*/
+
+
 (function() {
   var PriorityQueue, colorDist, getColorMap, setColor;
 
@@ -43,63 +52,49 @@
   };
 
   this.color = function(imageURL, canvasEl, classMap) {
-    var canvas, colors, image;
-    colors = [];
+    var canvas, image;
     image = new Image;
     image.src = imageURL;
     canvas = document.getElementById(canvasEl);
     return window.onload = function() {
-      var bgColor, bgColorMap, bgPalette, color, dist, fgColor, fgColor2, fgColorMap, fgPalette, maxDist, _i, _j, _len, _len1;
+      var bgColor, colorMap, distanceFrom, fgColor, fgColor2, fgPalette, palette;
       image.height = Math.round(image.height * (300 / image.width));
       image.width = 300;
       canvas.width = image.width;
       canvas.height = image.height;
       canvas.getContext("2d").drawImage(image, 0, 0, image.width, image.height);
-      bgColorMap = getColorMap(canvas, 0, 0, image.width * 0.5, image.height, 4);
-      bgPalette = bgColorMap.cboxes.map(function(cbox) {
+      colorMap = getColorMap(canvas, 0, 0, image.width, image.height, 10);
+      palette = colorMap.cboxes.map(function(cbox) {
         return {
           count: cbox.cbox.count(),
           rgb: cbox.color
         };
       });
-      bgPalette.sort(function(a, b) {
+      palette.sort(function(a, b) {
         return b.count - a.count;
       });
-      bgColor = bgPalette[0].rgb;
-      fgColorMap = getColorMap(canvas, 0, 0, image.width, image.height, 10);
-      fgPalette = fgColorMap.cboxes.map(function(cbox) {
-        return {
-          count: cbox.cbox.count(),
-          rgb: cbox.color
-        };
+      bgColor = palette.shift().rgb;
+      distanceFrom = function(color) {
+        return colorDist(bgColor, color.rgb);
+      };
+      fgPalette = palette;
+      palette.sort(function(a, b) {
+        return distanceFrom(b) - distanceFrom(a);
       });
-      fgPalette.sort(function(a, b) {
-        return b.count - a.count;
-      });
-      maxDist = 0;
-      for (_i = 0, _len = fgPalette.length; _i < _len; _i++) {
-        color = fgPalette[_i];
-        dist = colorDist(bgColor, color.rgb);
-        if (dist > maxDist) {
-          maxDist = dist;
-          fgColor = color.rgb;
-        }
-      }
-      maxDist = 0;
-      for (_j = 0, _len1 = fgPalette.length; _j < _len1; _j++) {
-        color = fgPalette[_j];
-        dist = colorDist(bgColor, color.rgb);
-        if (dist > maxDist && color.rgb !== fgColor) {
-          maxDist = dist;
-          fgColor2 = color.rgb;
-        }
-      }
+      fgColor = fgPalette.shift().rgb;
+      fgColor2 = fgPalette.shift().rgb;
       console.log([bgColor, fgColor, fgColor2]);
       setColor(bgColor, classMap.bgClass, "background-color");
       setColor(fgColor, classMap.fgClass, "background-color");
       return setColor(fgColor2, classMap.fgClass2, "background-color");
     };
   };
+
+  /*!
+  quantize.coffee, Copyright 2012 Shao-Chung Chen.
+  Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
+  */
+
 
   PriorityQueue = (function() {
     function PriorityQueue(comparator) {
