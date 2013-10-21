@@ -28,8 +28,6 @@ setColor = (color, className, cssAttr="color") ->
       el.setAttribute("style", "#{oldValue} #{cssAttr}: #{color};")
 
 @color = (imageURL, canvasEl, classMap) ->
-  colors = []
-
   image = new Image
   image.src = imageURL
   canvas  = document.getElementById(canvasEl)
@@ -42,28 +40,16 @@ setColor = (color, className, cssAttr="color") ->
     canvas.height = image.height
     canvas.getContext("2d").drawImage image, 0, 0, image.width, image.height
 
-    bgColorMap = getColorMap canvas, 0, 0, (image.width * 0.5), (image.height), 4
-    bgPalette = bgColorMap.cboxes.map (cbox) -> { count: cbox.cbox.count(), rgb: cbox.color }
-    bgPalette.sort (a, b) -> (b.count - a.count)
-    bgColor = bgPalette[0].rgb
+    colorMap = getColorMap canvas, 0, 0, image.width, image.height, 10
+    palette = colorMap.cboxes.map (cbox) -> { count: cbox.cbox.count(), rgb: cbox.color }
+    palette.sort (a, b) -> (b.count - a.count)
+    bgColor = palette.shift().rgb
 
-    fgColorMap = getColorMap canvas, 0, 0, image.width, image.height, 10
-    fgPalette = fgColorMap.cboxes.map (cbox) -> { count: cbox.cbox.count(), rgb: cbox.color }
-    fgPalette.sort (a, b) -> (b.count - a. count)
-
-    maxDist = 0
-    for color in fgPalette
-      dist = colorDist bgColor, color.rgb
-      if dist > maxDist
-        maxDist = dist
-        fgColor = color.rgb
-
-    maxDist = 0
-    for color in fgPalette
-      dist = colorDist bgColor, color.rgb
-      if dist > maxDist and color.rgb != fgColor
-        maxDist = dist
-        fgColor2 = color.rgb
+    distanceFrom = (color) -> colorDist bgColor, color.rgb
+    fgPalette = palette
+    palette.sort (a, b) -> distanceFrom(b) - distanceFrom(a)
+    fgColor = fgPalette.shift().rgb
+    fgColor2 = fgPalette.shift().rgb
 
     console.log [bgColor, fgColor, fgColor2]
     setColor(bgColor, classMap.bgClass, "background-color")
