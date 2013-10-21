@@ -1,8 +1,6 @@
 ###!
 color-tunes.coffee
-Copyright 2012 Shao-Chung Chen.
-Modified 2013 Oliver Chang.
-
+Copyright 2012 Shao-Chung Chen. Modified 2013 Oliver Chang.
 Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
 ###
 
