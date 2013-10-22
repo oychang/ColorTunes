@@ -25,9 +25,9 @@ setColor = (color, className, cssAttr="color") ->
       oldValue = el.getAttribute "style"
       el.setAttribute("style", "#{oldValue} #{cssAttr}: #{color};")
 
-@color = (imageURL, canvasEl, classMap) ->
+@color = (canvasEl, classMap, imageElId="palette-image") ->
   image = new Image
-  image.src = imageURL
+  image.src = document.getElementById(imageElId).src
   canvas  = document.getElementById(canvasEl)
 
   window.onload = ->
