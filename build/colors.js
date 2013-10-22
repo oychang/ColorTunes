@@ -49,15 +49,17 @@ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.p
     return _results;
   };
 
-  this.color = function(imageURL, canvasEl, classMap) {
+  this.color = function(canvasEl, classMap, imageElId) {
     var canvas, image;
+    if (imageElId == null) {
+      imageElId = "palette-image";
+    }
     image = new Image;
-    image.src = imageURL;
+    image.src = document.getElementById(imageElId).src;
     canvas = document.getElementById(canvasEl);
     return window.onload = function() {
       var bgColor, colorMap, distanceFrom, fgColor, fgColor2, fgPalette, palette;
-      image.height = Math.round(image.height * (300 / image.width));
-      image.width = 300;
+      image.height = image.width = 36;
       canvas.width = image.width;
       canvas.height = image.height;
       canvas.getContext("2d").drawImage(image, 0, 0, image.width, image.height);
