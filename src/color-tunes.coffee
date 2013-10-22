@@ -31,8 +31,11 @@ setColor = (color, className, cssAttr="color") ->
   canvas  = document.getElementById(canvasEl)
 
   window.onload = ->
-    image.height = Math.round (image.height * (300 / image.width))
-    image.width = 300
+    # Use a small, square area for the image.
+    # Do not show the image, but use this for computation purposes.
+    # 36px x 36px is an arbitrarily chosen magic number based on
+    # this SO answer: http://stackoverflow.com/a/13675803/1832800
+    image.height = image.width = 36
 
     canvas.width = image.width
     canvas.height = image.height
