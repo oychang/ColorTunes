@@ -43,7 +43,7 @@ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.p
     _results = [];
     for (_i = 0, _len = els.length; _i < _len; _i++) {
       el = els[_i];
-      oldValue = el.getAttribute("style");
+      oldValue = el.getAttribute("style") || "";
       _results.push(el.setAttribute("style", "" + oldValue + " " + cssAttr + ": " + color + ";"));
     }
     return _results;
@@ -85,8 +85,8 @@ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.p
       fgColor2 = fgPalette.shift().rgb;
       console.log([bgColor, fgColor, fgColor2]);
       setColor(bgColor, classMap.bgClass, "background-color");
-      setColor(fgColor, classMap.fgClass, "background-color");
-      return setColor(fgColor2, classMap.fgClass2, "background-color");
+      setColor(fgColor, classMap.fgClass, "color");
+      return setColor(fgColor2, classMap.fgClass2, "color");
     };
   };
 

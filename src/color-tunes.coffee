@@ -22,7 +22,7 @@ setColor = (color, className, cssAttr="color") ->
     els = document.getElementsByClassName className
     color = "rgb(#{color[0]}, #{color[1]}, #{color[2]})"
     for el in els
-      oldValue = el.getAttribute "style"
+      oldValue = el.getAttribute("style") or ""
       el.setAttribute("style", "#{oldValue} #{cssAttr}: #{color};")
 
 @color = (canvasEl, classMap, imageElId="palette-image") ->
@@ -54,5 +54,5 @@ setColor = (color, className, cssAttr="color") ->
 
     console.log [bgColor, fgColor, fgColor2]
     setColor(bgColor, classMap.bgClass, "background-color")
-    setColor(fgColor, classMap.fgClass, "background-color")
-    setColor(fgColor2, classMap.fgClass2, "background-color")
+    setColor(fgColor, classMap.fgClass, "color")
+    setColor(fgColor2, classMap.fgClass2, "color")
