@@ -10,14 +10,9 @@
   <div style="height: 100px; width: 100px;" class="div2"></div>
   <div style="height: 100px; width: 100px;" class="div3"></div>
 
-  <canvas id="canvas-el" style="display:none;"></canvas>
   <script type="text/javascript" src="build/colors.js"></script>
   <script type="text/javascript">
-    color("canvas-el", {
-      bgClass: "div1",
-      fgClass: "div2",
-      fgClass2: "div3"
-    });
+    color("palette-image", function(c) { console.log(c); });
   </script>
 </body>
 </html>
