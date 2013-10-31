@@ -33,7 +33,7 @@ rgbToHex = (arr) ->
 @color = (imageId="palette-image", colorFunc) ->
   image = new Image
   image.src = document.getElementById(imageId).src
-  canvas = document.createElement('canvas')
+  canvas = document.createElement("canvas")
 
   window.onload = ->
     # Use a small, square area for the image.

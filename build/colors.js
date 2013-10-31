@@ -58,7 +58,7 @@ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.p
     }
     image = new Image;
     image.src = document.getElementById(imageId).src;
-    canvas = document.createElement('canvas');
+    canvas = document.createElement("canvas");
     return window.onload = function() {
       var bgColor, colorMap, colors, distanceFrom, fgColor, fgColor2, fgPalette, palette;
       image.height = image.width = 36;
