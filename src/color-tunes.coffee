@@ -18,17 +18,22 @@ colorDist = (a, b) ->
   square = (n) -> (n * n)
   (square(a[0] - b[0]) + square(a[1] - b[1]) + square(a[2] - b[2]))
 
-setColor = (color, className, cssAttr="color") ->
-    els = document.getElementsByClassName className
-    color = "rgb(#{color[0]}, #{color[1]}, #{color[2]})"
-    for el in els
-      oldValue = el.getAttribute("style") or ""
-      el.setAttribute("style", "#{oldValue} #{cssAttr}: #{color};")
+rgbToHex = (arr) ->
+  decimalToHex = (n) ->
+    n = n.toString(16)
+    if n.length < 2 then n += "0" else n
 
-@color = (canvasEl, classMap, imageElId="palette-image") ->
+  triple.map(decimalToHex).join("") for triple in arr
+
+# Extract three main colors from an image.
+# Args: [[imageId] [colorFunc]]
+# imageId: the id of an <img> tag with a valid src to use as our image
+# colorFunc: a function taking one argument, a three-el list [bg, fg1, fg2]
+#            of hex color values; e.g. ['000000', 'ffffff', '000fff']
+@color = (imageId="palette-image", colorFunc) ->
   image = new Image
-  image.src = document.getElementById(imageElId).src
-  canvas  = document.getElementById(canvasEl)
+  image.src = document.getElementById(imageId).src
+  canvas = document.createElement('canvas')
 
   window.onload = ->
     # Use a small, square area for the image.
@@ -52,7 +57,6 @@ setColor = (color, className, cssAttr="color") ->
     fgColor = fgPalette.shift().rgb
     fgColor2 = fgPalette.shift().rgb
 
-    console.log [bgColor, fgColor, fgColor2]
-    setColor(bgColor, classMap.bgClass, "background-color")
-    setColor(fgColor, classMap.fgClass, "color")
-    setColor(fgColor2, classMap.fgClass2, "color")
+    colors = rgbToHex [bgColor, fgColor, fgColor2]
+    if colorFunc
+      colorFunc colors

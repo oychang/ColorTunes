@@ -6,7 +6,7 @@ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.p
 
 
 (function() {
-  var PriorityQueue, colorDist, getColorMap, setColor;
+  var PriorityQueue, colorDist, getColorMap, rgbToHex;
 
   getColorMap = function(canvas, sx, sy, w, h, nc) {
     var index, indexBase, pdata, pixels, x, y, _i, _j, _ref, _ref1;
@@ -33,32 +33,34 @@ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.p
     return square(a[0] - b[0]) + square(a[1] - b[1]) + square(a[2] - b[2]);
   };
 
-  setColor = function(color, className, cssAttr) {
-    var el, els, oldValue, _i, _len, _results;
-    if (cssAttr == null) {
-      cssAttr = "color";
-    }
-    els = document.getElementsByClassName(className);
-    color = "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
+  rgbToHex = function(arr) {
+    var decimalToHex, triple, _i, _len, _results;
+    decimalToHex = function(n) {
+      n = n.toString(16);
+      if (n.length < 2) {
+        return n += "0";
+      } else {
+        return n;
+      }
+    };
     _results = [];
-    for (_i = 0, _len = els.length; _i < _len; _i++) {
-      el = els[_i];
-      oldValue = el.getAttribute("style") || "";
-      _results.push(el.setAttribute("style", "" + oldValue + " " + cssAttr + ": " + color + ";"));
+    for (_i = 0, _len = arr.length; _i < _len; _i++) {
+      triple = arr[_i];
+      _results.push(triple.map(decimalToHex).join(""));
     }
     return _results;
   };
 
-  this.color = function(canvasEl, classMap, imageElId) {
+  this.color = function(imageId, colorFunc) {
     var canvas, image;
-    if (imageElId == null) {
-      imageElId = "palette-image";
+    if (imageId == null) {
+      imageId = "palette-image";
     }
     image = new Image;
-    image.src = document.getElementById(imageElId).src;
-    canvas = document.getElementById(canvasEl);
+    image.src = document.getElementById(imageId).src;
+    canvas = document.createElement('canvas');
     return window.onload = function() {
-      var bgColor, colorMap, distanceFrom, fgColor, fgColor2, fgPalette, palette;
+      var bgColor, colorMap, colors, distanceFrom, fgColor, fgColor2, fgPalette, palette;
       image.height = image.width = 36;
       canvas.width = image.width;
       canvas.height = image.height;
@@ -83,10 +85,10 @@ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.p
       });
       fgColor = fgPalette.shift().rgb;
       fgColor2 = fgPalette.shift().rgb;
-      console.log([bgColor, fgColor, fgColor2]);
-      setColor(bgColor, classMap.bgClass, "background-color");
-      setColor(fgColor, classMap.fgClass, "color");
-      return setColor(fgColor2, classMap.fgClass2, "color");
+      colors = rgbToHex([bgColor, fgColor, fgColor2]);
+      if (colorFunc) {
+        return colorFunc(colors);
+      }
     };
   };
 
@@ -105,7 +107,7 @@ Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.p
 
     PriorityQueue.prototype.sort = function() {
       this.contents.sort(this.comparator);
-      return this.sotred = true;
+      return this.sorted = true;
     };
 
     PriorityQueue.prototype.push = function(obj) {
