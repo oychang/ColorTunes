@@ -6,4 +6,7 @@ all: coffee closure
 coffee:
 	coffee -jcp src/*.coffee > $(REGULAR_JS_PATH)
 closure:
-	java -jar $(CLOSURE_PATH) --js $(REGULAR_JS_PATH) --js_output_file $(MINIFIED_JS_PATH)
+	java -jar $(CLOSURE_PATH) \
+ 	     --compilation_level ADVANCED_OPTIMIZATIONS \
+	     --js $(REGULAR_JS_PATH) \
+	     --js_output_file $(MINIFIED_JS_PATH)
