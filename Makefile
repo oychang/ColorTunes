@@ -1,12 +1,14 @@
-CLOSURE_PATH = "/home/ochang/Code/closure-compiler/build/compiler.jar"
+UGLIFY_JS = "uglifyjs"
 REGULAR_JS_PATH = "build/colors.js"
 MINIFIED_JS_PATH = "build/colors.min.js"
 
-all: coffee closure
+all: coffee compress
 coffee:
 	coffee -jcp src/*.coffee > $(REGULAR_JS_PATH)
-closure:
-	java -jar $(CLOSURE_PATH) \
- 	     --compilation_level ADVANCED_OPTIMIZATIONS \
-	     --js $(REGULAR_JS_PATH) \
-	     --js_output_file $(MINIFIED_JS_PATH)
+compress:
+	$(UGLIFY_JS)\
+	    $(REGULAR_JS_PATH)\
+	    -o $(MINIFIED_JS_PATH)\
+	    --compress --mangle\
+	    --comments all --screw-ie8 --lint
+

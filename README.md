@@ -22,7 +22,7 @@ Build
 -----
 Requires `coffee` in `$PATH`.
 
-Optional: `closure-compiler` (for optimization/minification)
+Optional: UglifyJS(2) (for optimization/minification)
 
 Assuming in root project directory, run `make`.
 
