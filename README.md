@@ -35,7 +35,7 @@ Signature of coffee function:
     # Args: [[imageId] [colorFunc]]
     # imageId: the id of an <img> tag with a valid src to use as our image
     # colorFunc: a function taking one argument, a three-el list [bg, fg1, fg2]
-    #            of one three-el list of RGB values of imageId
+    #            of hex color values; e.g. ['000000', 'ffffff', '000fff']
     @color = (imageId="palette-image", colorFunc) ->
 
 In HTML:
@@ -45,11 +45,7 @@ In HTML:
     ...
     <script type="text/javascript" src="colors.min.js"></script>
     <script type="text/javascript">
-        var palette = color("palette-image");
-        // or:
-        //var palette = color();
-        // or:
-        //color("palette-image", function(p) { console.log(p); });
+        color("palette-image", function(p) { console.log(p); });
     </script>
 
 
