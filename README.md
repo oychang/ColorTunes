@@ -22,7 +22,7 @@ Build
 -----
 Requires `coffee` in `$PATH`.
 
-Optional: `yui-compressor` (for minification)
+Optional: `closure-compiler` (for optimization/minification)
 
 Assuming in root project directory, run `make`.
 
